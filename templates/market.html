@@ -1,0 +1,166 @@
+{% extends 'base.html' %} {% block title %}Market{% endblock %} {% block content%}
+  
+  <style>
+    /* CSS to change body of the admin market page*/
+    body {
+      background-color: black;
+    }
+    /* CSS for the admin stock market title, alinging in the center and bolding */
+    h1 {
+      text-align: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    table {
+      color: white;
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* CSS for the titles in the stock markert table */
+    tr th {
+      padding: 10px;
+      color:#00c805;
+    }
+
+
+    /* CSS for adding lines in the table */
+    th, td {
+      border: solid white;
+    }
+
+    /* CSS for the rows in the stock market table*/
+    .stock-rows{
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    .table-container {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* CSS for the edit and delete buttons */
+    td a {
+      text-decoration: none;
+      background-color: #00c805;
+      display: block;
+      color: black;
+      font-weight: bold;
+      width: 100%;
+      height: 100%;
+      padding: 10px 0px;
+      box-sizing: border-box;
+    }
+
+    /* CSS for when the buy button is hovered */
+    .buy:hover{
+      color: white;
+      background-color: black;
+    }
+
+  
+    /* CSS for the flash message that gets displayed after a stock is changed */
+    .message {
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      list-style-type: none;
+    }
+
+    .change-buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    .market-hours {
+      text-align: center;
+      color:#00c805;
+      font-size: 60px;
+      font-family: Clock;
+    }
+
+    button {
+      border: none;
+      background-color: black;
+      color: white;
+      padding-bottom: 5px;
+      font-weight: bold;
+    }
+  </style>
+  
+  <body>
+    <!-- Displays the market hours above the stock market table, shows the most recent market hour update -->
+    {% if last_hour %}
+    <p class="market-hours">Market Hours: {{ last_hour.open_day }}-{{ last_hour.close_day }} {{ last_hour.open_hour }}am-{{ last_hour.close_hour }}pm</p>
+    {% else %}
+    <!-- If there are not market hours in the table then this message will be displayed -->
+    <p>No market hours available</p>
+    {% endif %}
+
+    <!-- Flashes a message that the stock market hours have been added -->
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul> {% for message in messages %}
+      <li class="message">{{ message }}</li>
+      {% endfor %}
+    </ul> {% endif %} {% endwith %}
+    
+    <button onclick="window.location.reload();">Refresh Market Table <i class="fa fa-refresh" style="color:#00c805;"></i></button>
+    <!-- Container for the stock table -->
+    <div class="table-container">
+      <!-- Table for the stocks, pulls value from the database to populate the table -->
+      <table border="1">
+        <thead>
+          <!-- Table row for the title of the table values -->
+          <tr>
+            <th>Company</th>
+            <th>Ticker</th>
+            <th>Current Price</th>
+            <th>Volume</th>
+            <th>Market Capitalization</th>
+            <th>Daily High</th>
+            <th>Daily Low</th>
+            <th>Purchase Stock</th>
+          </tr>
+        </thead>
+        <!-- This is where the table gets the values from the database -->
+        <tbody> {% for stock in stocks %} 
+          <tr class="stock-rows">
+
+            <!-- Cell gets the company_name value from the database  -->
+            <td class="stock-rows">{{ stock.company_name }}</td>
+
+            <!-- Cell gets the ticker_symbol value from the database  -->
+            <td class="stock-rows">{{ stock.ticker_symbol }}</td>
+
+            <!-- Cell gets the current_price value from the database  -->
+            <td class="stock-rows">{{ stock.current_price }}</td>
+
+            <!-- Cell gets the volume value from the database  -->
+            <td class="stock-rows">{{ stock.volume }}</td>
+
+            <!-- Cell is calculate in the .py file multiplying the volume and the current price to get the market capitalization -->
+            <td class="stock-rows">{{ stock.market_capitalization }}</td>
+
+            <!-- Cell for showing the daily high stock price-->
+            <td class="stock-rows">{{ stock.daily_high}}</td>
+
+            <!-- Cell for showing the daily low stock price -->
+            <td class="stock-rows">{{ stock.daily_low}}</td>
+
+            <!-- Links for deleting and edting the stocks in the stock table -->
+            <td> 
+              <a class="buy" href="{{ url_for('buy_stock', stock_id=stock.stock_id) }}">Buy</a>
+            </td>
+          </tr> {% else %} 
+          <tr>
+            <!-- If no stocks are found display this message -->
+            <td colspan="7">No stocks found</td>
+          </tr> {% endfor %} </tbody>
+      </table>
+    </div>
+  </body>
+  
+{% endblock %}
