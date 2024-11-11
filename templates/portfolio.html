@@ -37,12 +37,14 @@
     tr th {
       padding: 10px;
       color:#00c805;
+      font-family: Roboto
     }
 
 
     /* CSS for adding lines in the table */
     th, td {
       border: solid white;
+      font-family: Roboto;
     }
 
     /* CSS for the rows in the stock market table*/
@@ -93,6 +95,28 @@
         z-index: 1;
     }
 
+    .username {
+        font-family: Moul;
+        font-size: 75px;
+        font-weight: normal;
+    }
+
+    h3 {
+        font-family: BebasNeue;
+        font-size: 50px;
+        font-weight: normal;
+    }
+
+    p {
+        font-size: 25px;
+        font-family: Roboto;
+        margin: 0;
+    }
+
+    .form-label {
+        font-family: Roboto;
+        font-size: 25px;
+    }
 </style>
 
 <script>
@@ -108,11 +132,11 @@
 </script>
 
 <div class="container mt-5">
-    <h1>{{ current_user.username }}'s Portfolio</h1>
+    <h1 class="username">{{ current_user.username }}'s Portfolio</h1>
 
-    <h3>Account Balance</h3>
+    <h3 class="balance">Account Balance</h3>
     <!-- Displays the logged in users balance on the webpage -->
-    <p>Your current balance: <span id="account-balance">${{ balance }}</span></p>
+    <p>Current balance: <span style="font-weight: bold; color:#00c805;" id="account-balance">${{ balance }}</span></p>
 
     <!--Add funds button/section -->
     <h3>Add Funds</h3>

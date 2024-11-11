@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content %}
+{% extends 'base.html' %} {% block title %}Buy Stock{% endblock %} {% block content %}
 <style>
   /* CSS for the p element that contains the admin back button */
   .market-back{
@@ -39,17 +39,24 @@
     padding-left: 10px;
     padding-right: 10px;
   }
+  
+  .price {
+    font-family: Roboto;
+    font-weight: bold;
+  }
 
   h2 {
     text-align: center;
     color: white;
     font-weight: bold;
+    font-family: Roboto;
   }
 
   h3{
     text-align: center;
     color: white;
     font-weight: bold;
+    font-family: Roboto;
   }
 
   #total_cost {
@@ -94,8 +101,8 @@
 <body>
     <!-- Creates a header with the name of the stock  -->
   <h1>Purchase {{ stock.company_name }} Stock</h1>
-  <h1>Current Price: {{ stock.current_price }}</h1>
-  <h2>{{ current_user.username }} Available Balance: {{ balance }}</h2>
+  <h1 class="price">Current Price: {{ stock.current_price }}</h1>
+  <h2>{{ current_user.username }} Available Balance: <span style="color:#00c805;">{{ balance }}</span></h2>
   <h3>Total Cost: <span id="total_cost">0.00</span></h3>
 
   <!-- Div element to display the buy stock error message and is dismissible. https://getbootstrap.com/docs/4.0/components/alerts/ -->

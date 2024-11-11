@@ -286,6 +286,7 @@ class UserStock(db.Model):
 #route 1 (page 1) #Home
 @app.route('/', methods=["GET", "POST"])
 def home():
+    login_error = None
     # If the user is already signed in when visiting the website they will be redirected to the portfolio page instead of being shown the home page
     if current_user.is_authenticated:
         return redirect(url_for('portfolio'))
@@ -298,8 +299,8 @@ def home():
             login_user(user)
             return redirect(url_for('market'))
         else:
-            flash('Login failed. Check your email and password', 'danger')
-    return render_template('home.html', form=form)
+            login_error = "User name or password is incorrect try again or create a new account if you are a first time user"
+    return render_template('home.html', form=form, login_error=login_error)
 
 #route 2 (page 2) market
 @app.route('/market')
@@ -329,7 +330,7 @@ def buy_stock(stock_id):
 
         # If the market is not open then flash message and return to market page
         if not market_open():
-            flash("Sorry, market is closed. Try again once the market is open", "danger")
+            flash("Sorry, market is closed due to either holiday or outside of current market hours. Try again once the market is open.", "danger")
             return redirect(url_for('market'))
         
         # total cost of stock is current price of the stock multiplied by the volume you are buying at 
@@ -391,8 +392,8 @@ def sell_stock(stock_id):
 
         # If market isn't open then redirect back to the portfolio page and then flash error message
         if not market_open():
-            flash("Sorry, market is closed. Try again once the market is open", "danger")
-            return redirect(url_for('portfolio'))
+            flash("Sorry, market is closed due to either holiday or outside of current market hours. Try again once the market is open.", "danger")
+            return redirect(url_for('market'))
         
         # Queries the user stock and filters by the user id and stock id 
         user_stock = UserStock.query.filter_by(user_id=current_user.id, stock_id=stock_id).first()

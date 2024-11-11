@@ -40,16 +40,23 @@
       padding-right: 10px;
     }
   
+    .price {
+    font-family: Roboto;
+    font-weight: bold;
+    }
+
     h2 {
       text-align: center;
       color: white;
       font-weight: bold;
+      font-family: Roboto;
     }
   
     h3{
       text-align: center;
       color: white;
       font-weight: bold;
+      font-family: Roboto;
     }
 
     #total_sell {
@@ -102,8 +109,8 @@
 
 <!-- Creates a header with the name of the stock -->
 <h1>Sell {{ stock.company_name }} Stock</h1>
-<h1>Current Price: {{ stock.current_price }}</h1>
-<h2>{{ current_user.username }} Current Balance: {{ balance }}</h2>
+<h1 class="price">Current Price: {{ stock.current_price }}</h1>
+<h2>{{ current_user.username }} Current Balance: <span style="color:#00c805;">{{ balance }}</span></h2>
 <h3>Total Sell Price: <span id="total_sell">0.00</span></h3>
 <h3>Profit: <span id="total_profit">0.00</span></h3>
 

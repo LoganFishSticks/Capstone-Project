@@ -37,6 +37,22 @@
         src: url("{{ url_for('static', filename='Fonts/digital-7.ttf') }}");
       }
 
+      @font-face {
+        font-family: SourGummy;
+        src: url("{{ url_for('static', filename='Fonts/SourGummy-VariableFont_wdth,wght.ttf') }}");
+      }
+
+      @font-face {
+        font-family: Moul;
+        src: url("{{ url_for('static', filename='Fonts/Moul-Regular.ttf') }}");
+      }
+
+      @font-face {
+        font-family: Roboto;
+        src: url("{{ url_for('static', filename='Fonts/RobotoMono-VariableFont_wght.ttf') }}");
+      }
+
+
       /* Forces he html and body elements to take up the full height */
         html, body {
           height: 100%;
@@ -55,6 +71,9 @@
           text-align: center;
           font-weight: bold;
           color: white;
+          font-family: Moul;
+          font-weight: lighter;
+          font-size: 50px;
         }
 
         /* Allows the main element to grow and take up free space */
