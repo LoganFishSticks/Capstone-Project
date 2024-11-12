@@ -343,7 +343,7 @@ def buy_stock(stock_id):
 
         # If the user doesn't have enough available cash redirect to market page and flash insufficient funds message
         if current_user.cash_account.balance < total_cost:
-            hour_error = "Sorry, market is currently closed because it is either a holiday are it is outside of the market hours. Try again once the market is open."
+            buy_error = "Oops, looks like you don't have enough funds to purchase stock. Try again after adding more funds to account or selecting a lower volume to purchase."
             return render_template('buy_stock.html', stock=stock, buy_error=buy_error, balance=balance)
         
         # Get the users cash account balance and subtract the total cost 
