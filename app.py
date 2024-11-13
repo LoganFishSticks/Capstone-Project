@@ -31,7 +31,7 @@ login_manager.login_message_category = 'info'
 os.environ['TZ'] = 'America/Phoenix'
 
 # MySQL database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/stockwebsite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Password123!@database-1.cv0c02koavh4.us-east-1.rds.amazonaws.com/stockwebsite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -96,7 +96,7 @@ def reset_daily_price():
 # Creates the scheduler 
 sched = BackgroundScheduler(timezone=timezone('America/Phoenix'), daemon=True)
 # runs the fluctuate_price function every 5 minutes. Using interval to specify when to fluctuate the prices.
-sched.add_job(fluctuate_price, 'interval', minutes=5)
+sched.add_job(fluctuate_price, 'interval', minutes=1)
 # Runs the reset_daily_price function at midnight everyday. Using cron to specify the certain time of day I want it to run
 sched.add_job(reset_daily_price, 'cron', hour=0, minute=0)
 # Starts the scheduler
